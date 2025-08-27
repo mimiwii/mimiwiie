@@ -3,175 +3,189 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Love</title>
+    <title>For My Baby 💕</title>
     <style>
         body {
             margin: 0;
             padding: 0;
             min-height: 100vh;
-            background: linear-gradient(45deg, #ff6b6b, #ff8e8e, #ffa8a8, #ffcccb);
+            background: linear-gradient(135deg, #f8c8dc, #ffd1dc, #ffb6c1);
             background-size: 400% 400%;
-            animation: gradientShift 8s ease infinite;
+            animation: softGradient 8s ease infinite;
             overflow: hidden;
             font-family: 'Arial', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             position: relative;
         }
 
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
+        @keyframes softGradient {
+            0%, 100% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .main-message {
-            font-size: 3rem;
-            font-weight: bold;
-            color: white;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-            text-align: center;
-            z-index: 10;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
         }
 
         .falling-text {
             position: absolute;
-            font-weight: bold;
-            color: white;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            font-size: 1.2rem;
+            color: #d63384;
             pointer-events: none;
             white-space: nowrap;
+            font-weight: normal;
+            opacity: 0.9;
         }
 
-        .heart {
+        .heart-drawing {
             position: absolute;
-            color: #ff1744;
-            font-size: 2rem;
+            color: #d63384;
+            font-size: 1.5rem;
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
+        .simple-heart {
+            position: absolute;
+            width: 20px;
+            height: 18px;
             pointer-events: none;
         }
 
-        @keyframes fall {
+        .simple-heart:before,
+        .simple-heart:after {
+            content: '';
+            width: 12px;
+            height: 18px;
+            position: absolute;
+            left: 10px;
+            background: #d63384;
+            border-radius: 10px 10px 0 0;
+            transform: rotate(-45deg);
+            transform-origin: 0 100%;
+        }
+
+        .simple-heart:after {
+            left: 0;
+            transform: rotate(45deg);
+            transform-origin: 100% 100%;
+        }
+
+        @keyframes gentleFall {
+            to {
+                transform: translateY(100vh) translateX(50px);
+                opacity: 0;
+            }
+        }
+
+        @keyframes heartFloat {
             to {
                 transform: translateY(100vh) rotate(360deg);
                 opacity: 0;
             }
         }
 
-        @keyframes heartFall {
-            to {
-                transform: translateY(100vh) rotate(720deg);
-                opacity: 0;
-            }
-        }
-
-        .sparkle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: white;
-            border-radius: 50%;
-            pointer-events: none;
-            animation: sparkle 3s ease-in-out infinite;
-        }
-
-        @keyframes sparkle {
-            0%, 100% { opacity: 0; transform: scale(0); }
-            50% { opacity: 1; transform: scale(1); }
-        }
+        .message-1 { font-size: 1.1rem; }
+        .message-2 { font-size: 1.3rem; }
+        .message-3 { font-size: 1rem; }
+        .message-4 { font-size: 1.4rem; }
+        .message-5 { font-size: 1.2rem; }
 
         @media (max-width: 768px) {
-            .main-message {
-                font-size: 2rem;
-                padding: 20px;
+            .falling-text {
+                font-size: 1rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="main-message">
-        💕 I Love You Baby 💕
-    </div>
-
     <script>
         const messages = [
-            "I love you baby",
-            "You're amazing",
-            "My heart is yours",
-            "Forever & always",
-            "You make me smile",
-            "My everything",
-            "Sweet dreams",
-            "You're perfect",
-            "Missing you",
-            "XOXOXO"
+            "i love u !!",
+            "i miss u come here",
+            "i wanna kiss u",
+            "i love u !!",
+            "baby",
+            "i miss u",
+            "kiss me",
+            "i love u so much",
+            "come here",
+            "i need u",
+            "my love",
+            "i love u !!"
         ];
+
+        const heartSymbols = ['♡', '♥', '💕', '💖'];
 
         function createFallingText() {
             const text = document.createElement('div');
             text.className = 'falling-text';
             text.textContent = messages[Math.floor(Math.random() * messages.length)];
             
-            // Random position and size
-            text.style.left = Math.random() * 100 + 'vw';
-            text.style.fontSize = (Math.random() * 1.5 + 1) + 'rem';
-            text.style.animationDuration = (Math.random() * 3 + 4) + 's';
-            text.style.animation = 'fall linear forwards';
+            // Add random message size classes
+            const sizeClasses = ['message-1', 'message-2', 'message-3', 'message-4', 'message-5'];
+            text.classList.add(sizeClasses[Math.floor(Math.random() * sizeClasses.length)]);
+            
+            // Random position
+            text.style.left = Math.random() * 90 + 'vw';
+            text.style.top = '-50px';
+            text.style.animationDuration = (Math.random() * 4 + 6) + 's';
+            text.style.animation = 'gentleFall linear forwards';
             
             document.body.appendChild(text);
             
             // Remove after animation
             setTimeout(() => {
-                text.remove();
-            }, 7000);
+                if (text.parentNode) {
+                    text.remove();
+                }
+            }, 10000);
         }
 
-        function createFallingHeart() {
+        function createFloatingHeart() {
             const heart = document.createElement('div');
-            heart.className = 'heart';
-            heart.textContent = Math.random() > 0.5 ? '💖' : '💕';
+            heart.className = 'heart-drawing';
+            heart.textContent = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
             
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = (Math.random() * 4 + 3) + 's';
-            heart.style.animation = 'heartFall linear forwards';
+            heart.style.left = Math.random() * 95 + 'vw';
+            heart.style.top = '-30px';
+            heart.style.animationDuration = (Math.random() * 5 + 7) + 's';
+            heart.style.animation = 'heartFloat linear forwards';
             
             document.body.appendChild(heart);
             
             setTimeout(() => {
-                heart.remove();
-            }, 7000);
+                if (heart.parentNode) {
+                    heart.remove();
+                }
+            }, 12000);
         }
 
-        function createSparkle() {
-            const sparkle = document.createElement('div');
-            sparkle.className = 'sparkle';
+        function createSimpleHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'simple-heart';
             
-            sparkle.style.left = Math.random() * 100 + 'vw';
-            sparkle.style.top = Math.random() * 100 + 'vh';
-            sparkle.style.animationDelay = Math.random() * 3 + 's';
+            heart.style.left = Math.random() * 95 + 'vw';
+            heart.style.top = '-30px';
+            heart.style.animationDuration = (Math.random() * 6 + 5) + 's';
+            heart.style.animation = 'heartFloat linear forwards';
             
-            document.body.appendChild(sparkle);
+            document.body.appendChild(heart);
             
             setTimeout(() => {
-                sparkle.remove();
-            }, 6000);
+                if (heart.parentNode) {
+                    heart.remove();
+                }
+            }, 11000);
         }
 
-        // Start the animations
-        setInterval(createFallingText, 800);
-        setInterval(createFallingHeart, 600);
-        setInterval(createSparkle, 400);
+        // Start the animations with different intervals for a natural look
+        setInterval(createFallingText, 1200);
+        setInterval(createFloatingHeart, 2000);
+        setInterval(createSimpleHeart, 3000);
 
-        // Add some immediate effects
-        for(let i = 0; i < 5; i++) {
-            setTimeout(createFallingText, i * 200);
-            setTimeout(createFallingHeart, i * 150);
+        // Create some initial elements
+        for(let i = 0; i < 3; i++) {
+            setTimeout(createFallingText, i * 400);
+        }
+        
+        for(let i = 0; i < 2; i++) {
+            setTimeout(createFloatingHeart, i * 600);
         }
     </script>
 </body>
